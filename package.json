@@ -2,8 +2,10 @@
   "name": "nodejs-bestpractice",
   "version": "1.0.0",
   "description": "learning best practice of nodejs stack",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/mugisyahid/nodejs-bestpractice/issues"
   },
-  "homepage": "https://github.com/mugisyahid/nodejs-bestpractice#readme"
+  "homepage": "https://github.com/mugisyahid/nodejs-bestpractice#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "ejs": "^2.5.7",
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  }
 }
