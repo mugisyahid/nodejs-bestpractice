@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 const express = require('express')
 const cors = require('cors')
@@ -24,8 +24,6 @@ app.use(express.static(__dirname + '/public'));
 
 logger.info('[config] ' + JSON.stringify(config))
 
-app.use(require('./route'));
-
 // session
 app.use(session({ secret: config.secret, cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
 
@@ -44,10 +42,10 @@ const options = {
 }
 mongoose.Promise = global.Promise
 mongoose.set('debug', config.isProduction)
-mongoose.connect(`${config.mongo.url}/${config.mongo.collection}`, options)
+mongoose.connect(`${config.mongo.url}/${config.mongo.db}`, options)
 .then(
   () => {
-    logger.info('[mongodb] connected to ' + `${config.mongo.url}/${config.mongo.collection}`)    
+    logger.info('[mongodb] connected to ' + `${config.mongo.url}/${config.mongo.db}`)    
   },
   (err) => {
     logger.error('check your mongodb setting/connection')
@@ -55,8 +53,11 @@ mongoose.connect(`${config.mongo.url}/${config.mongo.collection}`, options)
   }
 )
 
-// model
+// model before route
 require('./model/User');
+
+// routes
+app.use(require('./route'));
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

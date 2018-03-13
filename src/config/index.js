@@ -3,7 +3,7 @@ module.exports = {
   appName: 'node js is awesome',
   mongo: {
     url: 'mongodb://localhost',
-    collection: 'awesomecollection'
+    db: 'awesomedb'
   },
   secret: process.env.NODE_ENV === 'production' ? process.env.SECRET : 'secret'
 }
