@@ -2,6 +2,14 @@
 const winston = require('winston')
 const { combine, timestamp, label, printf } = winston.format;
 
+const fs = require('fs');
+const logDir = './var/log'
+// Create the log directory if it does not exist
+if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir);
+  }
+  
+
 const tsFormat = () => (new Date()).toLocaleTimeString();
 
 const logFormat = printf(info => {
@@ -18,7 +26,7 @@ const transports = {
     }),timestamp: tsFormat,
     file: new winston.transports.File({
         level: 'info',
-        filename: './var/log/log.txt',
+        filename: `${logDir}/log.txt`,
         handleExceptions: true,
         json: false,
         maxsize: 5242880, //5MB
