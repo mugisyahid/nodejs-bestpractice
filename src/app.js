@@ -14,6 +14,7 @@ const logger = require('./service/logger')
 const app = express()
 
 app.use(cors());
+app.use(require('morgan')('combined', { stream: { write: message => logger.info(message) }}))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
