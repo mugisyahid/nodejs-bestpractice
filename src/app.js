@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const mongoose = require('mongoose')
 const errorhandler = require('errorhandler')
+const passport = require('passport')
 
 
 // custom import
@@ -55,6 +56,9 @@ mongoose.connect(`${config.mongo.url}/${config.mongo.db}`, options)
 
 // model before route
 require('./model/User');
+
+// passport
+require('./config/passport')
 
 // routes
 app.use(require('./route'));
