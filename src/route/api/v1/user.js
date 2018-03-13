@@ -4,9 +4,15 @@ const router = require('express').Router()
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const passport = require('passport')
+const auth = require('../../auth')
+const jwt = require('jsonwebtoken')
+const config = require('../../../config')
 
-router.get('/', function(req, res, next) { 
-    res.send('it works v1')
+router.get('/', auth.required, function(req, res, next) { 
+  const token = req.headers.authorization.split(' ')[1]
+  console.log(token)
+  const user = jwt.decode(token, config.secret)
+  res.send({id: user.id, username: user.username})
 })
 
 
