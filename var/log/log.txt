@@ -1,2 +1,0 @@
-{"message":{"appName":"hahaha","port":3000},"level":"info"}
-{"message":"[starting] hahaha : 3000","level":"info"}
