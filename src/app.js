@@ -22,7 +22,8 @@ app.use(express.static(__dirname + '/public'));
 // config
 let config = {
     appName: "nodeJS is awesome",
-    port: 3000
+    port: 3000,
+    isProduction: false
 }
 
 try {
@@ -31,13 +32,43 @@ try {
     logger.error(e)
     logger.info('use default config')
 }
-logger.info(config)
+logger.info(JSON.stringify(config))
 
+app.use(require('./route'));
 
+/// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
-app.get('/', function(req, res) {
-    res.send('test')
-})
+/// error handlers
+
+// development error handler
+// will print stacktrace
+if (!config.isProduction) {
+  app.use(function(err, req, res, next) {
+    console.log(err.stack);
+
+    res.status(err.status || 500);
+
+    res.json({'errors': {
+      message: err.message,
+      error: err
+    }});
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({'errors': {
+    message: err.message,
+    error: {}
+  }});
+});
 
 // start server...
 const server = app.listen(config.port, function() {
