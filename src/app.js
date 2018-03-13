@@ -5,7 +5,10 @@ const cors = require('cors')
 const http = require('http')
 const path = require('path')
 const bodyParser = require('body-parser')
+const yaml = require('js-yaml')
+const fs = require('fs')
 
+// custom service
 const logger = require('./service/logger')
 
 const app = express()
@@ -20,6 +23,16 @@ let config = {
     appName: "nodeJS is awesome",
     port: 3000
 }
+
+try {
+    config = yaml.safeLoad(fs.readFileSync('./var/config.yml', 'utf8'));
+} catch (e) {
+    logger.error(e)
+    logger.info('use default config')
+}
+logger.info(config)
+
+
 
 app.get('/', function(req, res) {
     res.send('test')

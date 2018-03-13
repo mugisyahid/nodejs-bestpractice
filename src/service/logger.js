@@ -10,7 +10,7 @@ const transports = {
     }),
     file: new winston.transports.File({
         level: 'info',
-        filename: '../../var/log/log.txt',
+        filename: './var/log/log.txt',
         handleExceptions: true,
         json: true,
         maxsize: 5242880, //5MB
